@@ -1,0 +1,41 @@
+<div class="">
+  <.header>
+    Pokcer Face
+    <:subtitle></:subtitle>
+  </.header>
+  <div class="grid grid-cols-2 gap-x-2">
+    <div id="user_photo" class="rounded shadow-lg p-2 flex flex-col gap-y-2" phx-hook="Camera">
+      <button
+        id="startCamera"
+        class="p-4 w-full h-full bg-r8-gray-2 border border-r8-gray-7 hover:border-r8-gray-9 disabled:hover:border-r8-gray-7 disabled:cursor-not-allowed"
+      >
+        <p class="text-r8-sm text-r8-gray-10 select-none flex items-center gap-2">
+          <.icon name="hero-camera" />Take a photo with your webcam
+        </p>
+      </button>
+      <div class="flex flex-col gap-y-2">
+        <video id="video" class="hidden" playsinline autoplay></video>
+        <img id="photo" />
+
+        <div id="buttonGroup" class="hidden flex flex-col gap-y-2 justify-center">
+          <button
+            id="takePhoto"
+            class="rounded-full py-2 border border-black hover:bg-black hover:text-white"
+          >
+            Take Photo
+          </button>
+          <button
+            id="stopCamera"
+            class="rounded-full py-2 border border-black hover:bg-black hover:text-white"
+          >
+            Cancel
+          </button>
+        </div>
+        <canvas id="canvas" class="hidden"></canvas>
+      </div>
+    </div>
+    <div id="poker_photo" class="rounded shadow-lg p-2">
+      <p class="text-center text-lg"><%= @photo_info %></p>
+    </div>
+  </div>
+</div>

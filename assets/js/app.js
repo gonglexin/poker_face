@@ -22,10 +22,65 @@ import {Socket} from "phoenix"
 import {LiveSocket} from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 
+let Hooks = {}
+
+Hooks.Camera = {
+  mounted() {
+    const startCamera = document.getElementById('startCamera');
+    const video = document.getElementById('video');
+    const takePhoto = document.getElementById('takePhoto');
+    const stopCamera = document.getElementById('stopCamera');
+    const canvas = document.getElementById('canvas');
+    const buttonGroup = document.getElementById('buttonGroup');
+    const photo = document.getElementById("photo");
+    const prevPhoto = document.getElementById("prevPhoto");
+    let stream = null;
+
+    // Start the camera when button is clicked
+    startCamera.addEventListener('click', async () => {
+      stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      video.srcObject = stream;
+      video.classList.remove('hidden');
+      buttonGroup.classList.remove('hidden');
+      startCamera.classList.add('hidden');
+      photo.src = "";
+    });
+
+    // Take a photo
+    takePhoto.addEventListener('click', () => {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0);
+      const imageDataURL = canvas.toDataURL('image/png');
+      photo.src = imageDataURL;
+
+      this.pushEvent("new_photo", { photo: imageDataURL })
+
+      // buttonGroup.classList.add('hidden');
+      // startCamera.classList.remove('hidden');
+      // video.classList.add('hidden');
+      // video.srcObject = null;
+    });
+
+    // Stop the camera
+    stopCamera.addEventListener('click', () => {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+      buttonGroup.classList.add('hidden');
+      startCamera.classList.remove('hidden');
+      video.classList.add('hidden');
+      video.srcObject = null;
+      photo.src = "";
+    });
+  }
+}
+
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, {
   longPollFallbackMs: 2500,
-  params: {_csrf_token: csrfToken}
+  params: { _csrf_token: csrfToken },
+  hooks: Hooks
 })
 
 // Show progress bar on live navigation and form submits
