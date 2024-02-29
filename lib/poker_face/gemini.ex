@@ -1,9 +1,11 @@
 defmodule PokerFace.Gemini do
+  require Logger
+
   @vision_uri "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent"
 
   def analyze_image("data:image/png;base64," <> image_data) do
     prompt = """
-      What's is he/she/it doing?
+      What's this? What's is he/she/it doing if there is a person in the image?
     """
 
     body = %{
@@ -24,14 +26,22 @@ defmodule PokerFace.Gemini do
         connect_options: [protocols: [:http1]]
       )
 
-    text =
-      resp.body["candidates"]
-      |> List.first()
-      |> Map.get("content")
-      |> Map.get("parts")
-      |> List.first()
-      |> Map.get("text")
+    Logger.info(inspect(resp))
 
-    {:ok, text}
+    case resp do
+      %{status: 200} ->
+        text =
+          resp.body["candidates"]
+          |> List.first()
+          |> Map.get("content")
+          |> Map.get("parts")
+          |> List.first()
+          |> Map.get("text")
+
+        {:ok, text}
+
+      _ ->
+        {:error, resp.body["error"]["message"]}
+    end
   end
 end
