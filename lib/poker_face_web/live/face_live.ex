@@ -20,11 +20,12 @@ defmodule PokerFaceWeb.FaceLive do
     end)
 
     socket =
-      stream_insert(
-        socket,
+      socket
+      |> stream_insert(
         :messages,
         Message.new(:user, :text, "Gererate Sticker")
       )
+      |> push_event("scroll", %{})
 
     {:noreply, socket}
   end
@@ -36,11 +37,12 @@ defmodule PokerFaceWeb.FaceLive do
     end)
 
     socket =
-      stream_insert(
-        socket,
+      socket
+      |> stream_insert(
         :messages,
         Message.new(:user, :text, question)
       )
+      |> push_event("scroll", %{})
 
     {:noreply, socket}
   end
@@ -50,11 +52,12 @@ defmodule PokerFaceWeb.FaceLive do
     Process.demonitor(ref, [:flush])
 
     socket =
-      stream_insert(
-        socket,
+      socket
+      |> stream_insert(
         :messages,
         Message.new(:ai, :image, images |> List.last())
       )
+      |> push_event("scroll", %{})
 
     {:noreply, socket}
   end
@@ -64,11 +67,12 @@ defmodule PokerFaceWeb.FaceLive do
     Process.demonitor(ref, [:flush])
 
     socket =
-      stream_insert(
-        socket,
+      socket
+      |> stream_insert(
         :messages,
         Message.new(:ai, :text, text)
       )
+      |> push_event("scroll", %{})
 
     {:noreply, socket}
   end
@@ -78,11 +82,12 @@ defmodule PokerFaceWeb.FaceLive do
     Process.demonitor(ref, [:flush])
 
     socket =
-      stream_insert(
-        socket,
+      socket
+      |> stream_insert(
         :messages,
         Message.new(:ai, :text, text)
       )
+      |> push_event("scroll", %{})
 
     {:noreply, socket}
   end

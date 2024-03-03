@@ -79,6 +79,10 @@ Hooks.Camera = {
       video.classList.add('hidden');
       video.srcObject = null;
     })
+
+    this.handleEvent("scroll", () => {
+      chats.scrollTop = chats.scrollHeight;
+    })
   }
 }
 
