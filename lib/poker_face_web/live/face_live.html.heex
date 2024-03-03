@@ -28,7 +28,6 @@
       </button>
       <div class="flex flex-col gap-y-2">
         <video id="video" class="hidden" playsinline autoplay></video>
-        <img id="photo" />
 
         <div id="buttonGroup" class="hidden flex flex-col gap-y-2 justify-center">
           <button
@@ -48,12 +47,7 @@
       </div>
     </div>
     <div id="poker_photo" class="rounded shadow-lg p-2 flex flex-col">
-      <div id="chat_records" class="flex flex-col grow">
-        <p class="text-center text-lg"><%= @photo_info %></p>
-        <div id="avatars">
-          <img :for={img <- @images} src={img} id={img |> String.split("\/") |> List.last()} />
-        </div>
-      </div>
+      <div id="chats" class="flex flex-col grow"></div>
       <div>
         <.form for={@form} phx-submit={JS.dispatch("js:ask")} class="space-y-2">
           <.input

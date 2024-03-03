@@ -7,9 +7,7 @@ defmodule PokerFaceWeb.FaceLive do
   def mount(_prams, _session, socket) do
     socket =
       socket
-      |> assign(:photo_info, nil)
       |> assign(:form, to_form(%{"question" => nil}))
-      |> assign(:images, [])
 
     {:ok, socket}
   end
@@ -38,7 +36,7 @@ defmodule PokerFaceWeb.FaceLive do
 
     socket =
       socket
-      |> assign(:images, images)
+      |> push_event(:ai_message, %{type: "image", text: images |> List.last()})
 
     {:noreply, socket}
   end
@@ -49,7 +47,7 @@ defmodule PokerFaceWeb.FaceLive do
 
     socket =
       socket
-      |> assign(:photo_info, text)
+      |> push_event(:ai_message, %{type: "text", text: text})
 
     {:noreply, socket}
   end
@@ -59,7 +57,7 @@ defmodule PokerFaceWeb.FaceLive do
 
     socket =
       socket
-      |> assign(:photo_info, text)
+      |> push_event(:ai_message, %{type: "text", text: text})
 
     {:noreply, socket}
   end

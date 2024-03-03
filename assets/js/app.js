@@ -32,8 +32,8 @@ Hooks.Camera = {
     const stopCamera = document.getElementById('stopCamera');
     const canvas = document.getElementById('canvas');
     const buttonGroup = document.getElementById('buttonGroup');
-    const photo = document.getElementById("photo");
     const prevPhoto = document.getElementById("prevPhoto");
+    this.chats = document.getElementById("chats");
     let stream = null;
 
     // Start the camera when button is clicked
@@ -43,7 +43,6 @@ Hooks.Camera = {
       video.classList.remove('hidden');
       buttonGroup.classList.remove('hidden');
       startCamera.classList.add('hidden');
-      photo.src = "";
     });
 
     // Take a photo
@@ -52,14 +51,10 @@ Hooks.Camera = {
       canvas.height = video.videoHeight;
       canvas.getContext('2d').drawImage(video, 0, 0);
       const imageDataURL = canvas.toDataURL('image/png');
-      photo.src = imageDataURL;
 
       this.pushEvent("new_photo", { photo: imageDataURL })
-
-      // buttonGroup.classList.add('hidden');
-      // startCamera.classList.remove('hidden');
-      // video.classList.add('hidden');
-      // video.srcObject = null;
+      this.add_text_message("user", "User is asking for generating a sticker for this image:")
+      this.add_image_message(imageDataURL)
     });
 
     this.el.addEventListener("js:ask", () => {
@@ -74,6 +69,8 @@ Hooks.Camera = {
         question: question,
         photo: imageDataURL
       })
+
+      this.add_text_message("user", question)
     });
 
     // Stop the camera
@@ -87,6 +84,26 @@ Hooks.Camera = {
       video.srcObject = null;
       photo.src = "";
     });
+
+    this.handleEvent("ai_message", ({ "type": type, "text": text }) => {
+      if (type === "text") {
+        this.add_text_message("ai", text)
+      } else {
+        this.add_image_message(text)
+      }
+    })
+  },
+
+  add_text_message(user, message) {
+    var p = document.createElement("p")
+    p.innerText = message
+    this.chats.appendChild(p)
+  },
+
+  add_image_message(img_url) {
+    var img = document.createElement("img")
+    img.src = img_url
+    this.chats.appendChild(img)
   }
 }
 
