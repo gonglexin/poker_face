@@ -18,27 +18,21 @@
   </div>
   <div id="poker_face" class="grid grid-cols-2" phx-hook="Camera">
     <div id="user_photo" class="rounded shadow-lg p-2 flex flex-col gap-y-2" phx-update="ignore">
-      <button
-        id="startCamera"
-        class="p-2 w-full h-full rounded-lg border hover:border-black disabled:border-gray-400 disabled:cursor-not-allowed"
-      >
-        <p class="text-zinc-600 select-none flex items-center gap-2">
-          <.icon name="hero-camera" />Open camera
-        </p>
-      </button>
       <div class="flex flex-col gap-y-2">
-        <video id="video" class="hidden" playsinline autoplay></video>
+        <video id="video" playsinline autoplay></video>
 
+        <button
+          id="startCamera"
+          class="hidden p-2 w-full rounded-lg border border-black hover:border-black disabled:border-gray-400 disabled:cursor-not-allowed"
+        >
+          <p class="text-zinc-600 select-none flex items-center gap-2">
+            <.icon name="hero-camera" />Open camera
+          </p>
+        </button>
         <div id="buttonGroup" class="hidden flex flex-col gap-y-2 justify-center">
           <button
-            id="takePhoto"
-            class="rounded-full py-2 border border-black hover:bg-black hover:text-white"
-          >
-            Generate Sticker
-          </button>
-          <button
             id="stopCamera"
-            class="rounded-full py-2 border border-black hover:bg-black hover:text-white"
+            class="hidden rounded-full py-2 border border-black hover:bg-black hover:text-white"
           >
             Cancel
           </button>
@@ -47,8 +41,24 @@
       </div>
     </div>
     <div id="poker_photo" class="rounded shadow-lg p-2 flex flex-col">
-      <div id="chats" class="flex flex-col grow"></div>
-      <div>
+      <div id="chats" class="flex flex-col h-[400px] gap-y-2 overflow-y-auto" phx-update="stream">
+        <div
+          :for={{id, m} <- @streams.messages}
+          class={[
+            "bg-gray-50 p-2 rounded text-sm text-zinc-600 flex flex-col",
+            m.user_type == :user && "place-items-end"
+          ]}
+          id={id}
+        >
+          <.icon name={if m.user_type == :ai, do: "hero-computer-desktop", else: "hero-user"} />
+          <%= if m.type == :text do %>
+            <p><%= m.text %></p>
+          <% else %>
+            <img src={m.text} class="rounded p-4" />
+          <% end %>
+        </div>
+      </div>
+      <div class="space-y-2">
         <.form for={@form} phx-submit={JS.dispatch("js:ask")} class="space-y-2">
           <.input
             id="question"
@@ -60,6 +70,12 @@
             Ask
           </button>
         </.form>
+        <button
+          id="takePhoto"
+          class="w-full rounded-full py-2 border border-black hover:bg-black hover:text-white"
+        >
+          Generate Sticker
+        </button>
       </div>
     </div>
   </div>

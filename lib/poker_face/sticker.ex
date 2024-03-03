@@ -11,14 +11,14 @@ defmodule PokerFace.Sticker do
           # prompt: "a person",
           # negative_prompt: "",
           width: 1024,
-          height: 1024
-          # steps: 20,
-          # prompt_strength: 4.5,
-          # instant_id_strength: 0.7
-          # ip_adapter_weight: 0.2,
-          # ip_adapter_noise: 0.5,
-          # upscale: false,
-          # upscale_steps: 10,
+          height: 1024,
+          steps: 20,
+          prompt_strength: 4.5,
+          instant_id_strength: 0.7,
+          ip_adapter_weight: 0.2,
+          ip_adapter_noise: 0.5,
+          upscale: false,
+          upscale_steps: 10
         }
       )
 

@@ -31,8 +31,7 @@ Hooks.Camera = {
     const takePhoto = document.getElementById('takePhoto');
     const stopCamera = document.getElementById('stopCamera');
     const canvas = document.getElementById('canvas');
-    const buttonGroup = document.getElementById('buttonGroup');
-    const prevPhoto = document.getElementById("prevPhoto");
+    // const buttonGroup = document.getElementById('buttonGroup');
     this.chats = document.getElementById("chats");
     let stream = null;
 
@@ -40,10 +39,11 @@ Hooks.Camera = {
     startCamera.addEventListener('click', async () => {
       stream = await navigator.mediaDevices.getUserMedia({ video: true });
       video.srcObject = stream;
-      video.classList.remove('hidden');
-      buttonGroup.classList.remove('hidden');
-      startCamera.classList.add('hidden');
-    });
+      // video.classList.remove('hidden');
+      // buttonGroup.classList.remove('hidden');
+      // startCamera.classList.add('hidden');
+    })
+    startCamera.click()
 
     // Take a photo
     takePhoto.addEventListener('click', () => {
@@ -53,9 +53,7 @@ Hooks.Camera = {
       const imageDataURL = canvas.toDataURL('image/png');
 
       this.pushEvent("new_photo", { photo: imageDataURL })
-      this.add_text_message("user", "User is asking for generating a sticker for this image:")
-      this.add_image_message(imageDataURL)
-    });
+    })
 
     this.el.addEventListener("js:ask", () => {
       question = document.getElementById("question").value
@@ -69,41 +67,18 @@ Hooks.Camera = {
         question: question,
         photo: imageDataURL
       })
-
-      this.add_text_message("user", question)
-    });
+    })
 
     // Stop the camera
     stopCamera.addEventListener('click', () => {
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
       }
-      buttonGroup.classList.add('hidden');
-      startCamera.classList.remove('hidden');
+      // buttonGroup.classList.add('hidden');
+      // startCamera.classList.remove('hidden');
       video.classList.add('hidden');
       video.srcObject = null;
-      photo.src = "";
-    });
-
-    this.handleEvent("ai_message", ({ "type": type, "text": text }) => {
-      if (type === "text") {
-        this.add_text_message("ai", text)
-      } else {
-        this.add_image_message(text)
-      }
     })
-  },
-
-  add_text_message(user, message) {
-    var p = document.createElement("p")
-    p.innerText = message
-    this.chats.appendChild(p)
-  },
-
-  add_image_message(img_url) {
-    var img = document.createElement("img")
-    img.src = img_url
-    this.chats.appendChild(img)
   }
 }
 
