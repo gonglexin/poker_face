@@ -20,6 +20,9 @@ if System.get_env("PHX_SERVER") do
   config :poker_face, PokerFaceWeb.Endpoint, server: true
 end
 
+config :replicate,
+  replicate_api_token: System.get_env("REPLICATE_API_TOKEN")
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||

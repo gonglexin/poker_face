@@ -1,7 +1,7 @@
 defmodule PokerFaceWeb.FaceLive do
   use PokerFaceWeb, :live_view
 
-  alias PokerFace.{Gemini, Openai}
+  alias PokerFace.{Openai, Sticker}
 
   @impl true
   def mount(_prams, _session, socket) do
@@ -9,6 +9,7 @@ defmodule PokerFaceWeb.FaceLive do
       socket
       |> assign(:photo_info, nil)
       |> assign(:form, to_form(%{"question" => nil}))
+      |> assign(:images, [])
 
     {:ok, socket}
   end
@@ -16,7 +17,7 @@ defmodule PokerFaceWeb.FaceLive do
   @impl true
   def handle_event("new_photo", %{"photo" => photo}, socket) do
     Task.async(fn ->
-      Gemini.analyze_image(photo)
+      Sticker.generate_sticker(photo)
     end)
 
     {:noreply, socket}
@@ -25,9 +26,19 @@ defmodule PokerFaceWeb.FaceLive do
   @impl true
   def handle_event("ask", %{"question" => question, "photo" => photo}, socket) do
     Task.async(fn ->
-      # Gemini.analyze_image(photo, question)
       Openai.analyze_image(photo, question)
     end)
+
+    {:noreply, socket}
+  end
+
+  @impl true
+  def handle_info({ref, {:ok, {:images, images}}}, socket) do
+    Process.demonitor(ref, [:flush])
+
+    socket =
+      socket
+      |> assign(:images, images)
 
     {:noreply, socket}
   end

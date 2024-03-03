@@ -48,8 +48,11 @@
       </div>
     </div>
     <div id="poker_photo" class="rounded shadow-lg p-2 flex flex-col">
-      <div class="flex grow">
+      <div id="chat_records" class="flex flex-col grow">
         <p class="text-center text-lg"><%= @photo_info %></p>
+        <div id="avatars">
+          <img :for={img <- @images} src={img} id={img |> String.split("\/") |> List.last()} />
+        </div>
       </div>
       <div>
         <.form for={@form} phx-submit={JS.dispatch("js:ask")} class="space-y-2">
