@@ -3,11 +3,7 @@ defmodule PokerFace.Gemini do
 
   @vision_uri "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent"
 
-  def analyze_image("data:image/png;base64," <> image_data) do
-    prompt = """
-      What's this? What's is he/she/it doing if there is a person in the image?
-    """
-
+  def analyze_image("data:image/png;base64," <> image_data, prompt \\ "What’s in this image?") do
     body = %{
       contents: [
         %{

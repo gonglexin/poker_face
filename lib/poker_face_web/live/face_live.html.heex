@@ -3,19 +3,14 @@
     Pokcer Face
     <:subtitle>Choose style to poker your face</:subtitle>
   </.header>
-  <div class="grid grid-cols-2">
-    <div
-      id="user_photo"
-      class="rounded shadow-lg p-2 flex flex-col gap-y-2"
-      phx-hook="Camera"
-      phx-update="ignore"
-    >
+  <div id="poker_face" class="grid grid-cols-2" phx-hook="Camera">
+    <div id="user_photo" class="rounded shadow-lg p-2 flex flex-col gap-y-2" phx-update="ignore">
       <button
         id="startCamera"
-        class="p-4 w-full h-full bg-r8-gray-2 border border-r8-gray-7 hover:border-r8-gray-9 disabled:hover:border-r8-gray-7 disabled:cursor-not-allowed"
+        class="p-2 w-full h-full rounded-lg border hover:border-black disabled:border-gray-400 disabled:cursor-not-allowed"
       >
-        <p class="text-r8-sm text-r8-gray-10 select-none flex items-center gap-2">
-          <.icon name="hero-camera" />Take a photo with your webcam
+        <p class="text-zinc-600 select-none flex items-center gap-2">
+          <.icon name="hero-camera" />Open camera
         </p>
       </button>
       <div class="flex flex-col gap-y-2">
@@ -39,8 +34,23 @@
         <canvas id="canvas" class="hidden"></canvas>
       </div>
     </div>
-    <div id="poker_photo" class="rounded shadow-lg p-2">
-      <p class="text-center text-lg"><%= @photo_info %></p>
+    <div id="poker_photo" class="rounded shadow-lg p-2 flex flex-col">
+      <div class="flex grow">
+        <p class="text-center text-lg"><%= @photo_info %></p>
+      </div>
+      <div>
+        <.form for={@form} phx-submit={JS.dispatch("js:ask")} class="space-y-2">
+          <.input
+            id="question"
+            field={@form[:question]}
+            placeholder="Question here"
+            class="rounded-lg"
+          />
+          <button class="w-full rounded-full py-2 border border-black hover:bg-black hover:text-white">
+            Ask
+          </button>
+        </.form>
+      </div>
     </div>
   </div>
 </div>

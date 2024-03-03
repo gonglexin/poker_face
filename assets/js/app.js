@@ -62,6 +62,20 @@ Hooks.Camera = {
       // video.srcObject = null;
     });
 
+    this.el.addEventListener("js:ask", () => {
+      question = document.getElementById("question").value
+
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0);
+      const imageDataURL = canvas.toDataURL('image/png');
+
+      this.pushEvent("ask", {
+        question: question,
+        photo: imageDataURL
+      })
+    });
+
     // Stop the camera
     stopCamera.addEventListener('click', () => {
       if (stream) {
