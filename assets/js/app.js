@@ -47,15 +47,29 @@ Hooks.Camera = {
 
     // Take a photo
     takePhoto.addEventListener('click', () => {
+      replicate_api_key = document.getElementById("replicate").value
+
+      if (replicate_api_key == '') {
+        alert("Please enter your Replicate API key.")
+        abort()
+      }
+
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
       canvas.getContext('2d').drawImage(video, 0, 0);
       const imageDataURL = canvas.toDataURL('image/png');
 
-      this.pushEvent("new_photo", { photo: imageDataURL })
+      this.pushEvent("new_photo", { photo: imageDataURL, replicate_api_key: replicate_api_key })
     })
 
     this.el.addEventListener("js:ask", () => {
+      openai_api_key = document.getElementById("openai").value
+
+      if (openai_api_key == '') {
+        alert("Please enter your OpenAI API key.")
+        abort()
+      }
+
       question = document.getElementById("question").value
 
       canvas.width = video.videoWidth;
@@ -65,7 +79,8 @@ Hooks.Camera = {
 
       this.pushEvent("ask", {
         question: question,
-        photo: imageDataURL
+        photo: imageDataURL,
+        openai_api_key: openai_api_key
       })
     })
 

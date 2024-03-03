@@ -31,9 +31,13 @@ defmodule PokerFaceWeb.FaceLive do
   end
 
   @impl true
-  def handle_event("ask", %{"question" => question, "photo" => photo}, socket) do
+  def handle_event(
+        "ask",
+        %{"question" => question, "photo" => photo, "openai_api_key" => openai_api_key},
+        socket
+      ) do
     Task.async(fn ->
-      Openai.analyze_image(photo, question)
+      Openai.analyze_image(photo, question, openai_api_key)
     end)
 
     socket =
