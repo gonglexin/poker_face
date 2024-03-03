@@ -3,3 +3,7 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+
+.hover-underline {
+  @apply hover:underline hover:underline-offset-4
+}
