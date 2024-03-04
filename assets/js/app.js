@@ -58,10 +58,10 @@ Hooks.Camera = {
     this.el.addEventListener("js:ask", () => {
       openai_api_key = document.getElementById("openai").value
 
-      if (openai_api_key == '') {
-        alert("Please enter your OpenAI API key.")
-        abort()
-      }
+      // if (openai_api_key == '') {
+      //   alert("Please enter your OpenAI API key.")
+      //   abort()
+      // }
 
       question = document.getElementById("question").value
 

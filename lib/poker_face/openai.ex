@@ -1,12 +1,13 @@
 defmodule PokerFace.Openai do
   require Logger
 
-  @chat_completions_url "https://openrouter.ai/api/v1/chat/completions"
+  @chat_completions_url "https://api.openai.com/v1/chat/completions"
+  @openrouter_chat_completions_url "https://openrouter.ai/api/v1/chat/completions"
 
   def analyze_image(
-        openai_api_key,
         "data:image/png;base64," <> _ = image_data,
-        prompt \\ "What’s in this image?"
+        prompt \\ "What’s in this image?",
+        openai_api_key
       ) do
     request = %{
       model: "gpt-4-vision-preview",
@@ -29,9 +30,21 @@ defmodule PokerFace.Openai do
   end
 
   def chat_completion(request, openai_api_key) do
-    Req.post!(@chat_completions_url,
+    key =
+      case openai_api_key do
+        "" -> api_key()
+        _ -> openai_api_key
+      end
+
+    url =
+      case openai_api_key do
+        "" -> @openrouter_chat_completions_url
+        _ -> @chat_completions_url
+      end
+
+    Req.post!(url,
       json: request,
-      auth: {:bearer, openai_api_key || api_key()},
+      auth: {:bearer, key},
       receive_timeout: 600_000,
       connect_options: [protocols: [:http1]]
     )
