@@ -3,7 +3,7 @@
 Implement two core features:
 
 - Transform your webcam feed into stickers or avatars
-- Pose questions about the camera images to GPT
+- Pose questions about the webcam images to GPT
 
 ## Youtube Intro Video
 
