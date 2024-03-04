@@ -66,6 +66,8 @@ Hooks.Camera = {
         photo: imageDataURL,
         openai_api_key: openai_api_key
       })
+
+      document.getElementById("question").value = ""
     })
 
     // Stop the camera
