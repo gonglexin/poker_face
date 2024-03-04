@@ -13,9 +13,9 @@ defmodule PokerFace.Message do
   def initial_messages() do
     [
       new(:ai, :text, "Hi, I'm PokerFace. How can I help you?"),
-      new(:ai, :text, "Click the 'Generate Sticket' button to get a stick avatar."),
-      new(:ai, :text, "Type any question you want to ask about the image in your camera."),
-      new(:user, :text, "Here is a user input example message.")
+      new(:ai, :text, "Click the 'Generate Sticket' button to get a sticker avatar."),
+      new(:ai, :text, "Type any question regarding the image captured by your camera."),
+      new(:user, :text, "Here is an example of a user input message: 'Do I wear glasses?'")
     ]
   end
 end
