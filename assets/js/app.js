@@ -47,19 +47,12 @@ Hooks.Camera = {
 
     // Take a photo
     takePhoto.addEventListener('click', () => {
-      replicate_api_key = document.getElementById("replicate").value
-
-      if (replicate_api_key == '') {
-        alert("Please enter your Replicate API key.")
-        abort()
-      }
-
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
       canvas.getContext('2d').drawImage(video, 0, 0);
       const imageDataURL = canvas.toDataURL('image/png');
 
-      this.pushEvent("new_photo", { photo: imageDataURL, replicate_api_key: replicate_api_key })
+      this.pushEvent("new_photo", { photo: imageDataURL })
     })
 
     this.el.addEventListener("js:ask", () => {
