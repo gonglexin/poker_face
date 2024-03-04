@@ -1,18 +1,16 @@
-# PokerFace
+# [PokerFace](https://poker-face.gonglexin.com/)
 
-To start your Phoenix server:
+Implement two core features:
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+- Transform your webcam feed into stickers or avatars
+- Pose questions about the camera images to GPT
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Youtube Intro Video
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+[![Poker Face intro video](https://img.youtube.com/vi/EFUJFZRQNFk/0.jpg)](https://www.youtube.com/watch?v=EFUJFZRQNFk)
 
-## Learn more
+## Links
 
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+- Demo site: [https://poker-face.gonglexin.com](https://poker-face.gonglexin.com)
+- Blog series
+  - [Creating Custom Stickers/Avatars from Your Webcam - Part 1](https://gonglexin.com/posts/poker-face-part-1)
