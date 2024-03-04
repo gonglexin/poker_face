@@ -1,11 +1,11 @@
 <div class="space-y-4">
-  <div class="text-center">
-    <p class="mt-2 text-sm leading-6 text-zinc-600">
+  <div class="text-sm text-zinc-500 text-center space-y-2">
+    <p>
       <a href="https://replicate.com/fofr/sticker-maker" class="hover-underline">
         Sticker generted by <em>fofr/sticker-maker</em> on Replicate
       </a>
     </p>
-    <p class="mt-2 text-sm leading-6 text-zinc-600">
+    <p>
       <a>
         This project was inspired by
         <em><a href="https://stickerbaker.com/" class="hover-underline">StickerBaker</a></em>
@@ -15,6 +15,8 @@
         </em>
       </a>
     </p>
+    <p>All face uploads are deleted after processing</p>
+    <p>All stickers/avatars will be deleted one hour after being generated</p>
   </div>
   <div id="poker_face" class="grid grid-cols-2" phx-hook="Camera">
     <div id="user_photo" class="rounded shadow-lg p-2 flex flex-col gap-y-2" phx-update="ignore">
@@ -39,11 +41,15 @@
         </div>
         <canvas id="canvas" class="hidden"></canvas>
 
+        <label class="text-zinc-500 text-sm text-center">
+          Please fill your own OpenAI API key <br />
+          (Make sure your key supports model <em>gpt-4-vision-preview</em>):
+        </label>
         <input
           id="openai"
           name="openai"
           type="password"
-          placeholder="OpenAI API KEY to ask question about image"
+          placeholder="sk-*****"
           value=""
           class="rounded-full border border-black focus:border-black focus:ring-0 text-sm"
         />

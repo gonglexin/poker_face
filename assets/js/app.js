@@ -36,14 +36,11 @@ Hooks.Camera = {
     let stream = null;
 
     // Start the camera when button is clicked
-    startCamera.addEventListener('click', async () => {
-      stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      video.srcObject = stream;
-      // video.classList.remove('hidden');
-      // buttonGroup.classList.remove('hidden');
-      // startCamera.classList.add('hidden');
-    })
-    startCamera.click()
+    // startCamera.addEventListener('click', async () => {
+    stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    video.srcObject = stream;
+    // })
+    // startCamera.click()
 
     // Take a photo
     takePhoto.addEventListener('click', () => {
@@ -57,12 +54,6 @@ Hooks.Camera = {
 
     this.el.addEventListener("js:ask", () => {
       openai_api_key = document.getElementById("openai").value
-
-      // if (openai_api_key == '') {
-      //   alert("Please enter your OpenAI API key.")
-      //   abort()
-      // }
-
       question = document.getElementById("question").value
 
       canvas.width = video.videoWidth;
