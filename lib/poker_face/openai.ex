@@ -10,7 +10,7 @@ defmodule PokerFace.Openai do
         openai_api_key
       ) do
     request = %{
-      model: "gpt-4o",
+      model: "gpt-4o-mini",
       messages: [
         %{
           role: "user",
