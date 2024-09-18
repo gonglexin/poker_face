@@ -59,7 +59,7 @@ defmodule PokerFace.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
-      {:req, "~> 0.4.11"},
+      {:req, "~> 0.5.0"},
       {:replicate, "~> 1.2.0"}
     ]
   end
