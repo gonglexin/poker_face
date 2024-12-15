@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
     <.live_title suffix=" · AI Sticker/Avatar, GPT">
-      <%= assigns[:page_title] || "PokerFace" %>
+      {assigns[:page_title] || "PokerFace"}
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V7D9EBS8BE"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V7D9EBS8BE">
+    </script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -21,6 +22,6 @@
     </script>
   </head>
   <body class="bg-white">
-    <%= @inner_content %>
+    {@inner_content}
   </body>
 </html>

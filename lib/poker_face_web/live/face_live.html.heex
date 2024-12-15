@@ -68,7 +68,7 @@
         >
           <.icon name={if m.user_type == :ai, do: "hero-computer-desktop", else: "hero-user"} />
           <%= if m.type == :text do %>
-            <p><%= m.text %></p>
+            <p>{m.text}</p>
           <% else %>
             <img src={m.text} class="rounded p-4" />
           <% end %>
