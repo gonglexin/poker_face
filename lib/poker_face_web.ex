@@ -42,8 +42,9 @@ defmodule PokerFaceWeb do
         formats: [:html, :json],
         layouts: [html: PokerFaceWeb.Layouts]
 
+      use Gettext, backend: PokerFaceWeb.Gettext
+
       import Plug.Conn
-      import PokerFaceWeb.Gettext
 
       unquote(verified_routes())
     end
@@ -81,11 +82,13 @@ defmodule PokerFaceWeb do
 
   defp html_helpers do
     quote do
+      # Translation
+      use Gettext, backend: PokerFaceWeb.Gettext
+
       # HTML escaping functionality
       import Phoenix.HTML
-      # Core UI components and translation
+      # Core UI components
       import PokerFaceWeb.CoreComponents
-      import PokerFaceWeb.Gettext
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS

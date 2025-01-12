@@ -15,9 +15,9 @@ defmodule PokerFaceWeb.CoreComponents do
   Icons are provided by [heroicons](https://heroicons.com). See `icon/1` for usage.
   """
   use Phoenix.Component
+  use Gettext, backend: PokerFaceWeb.Gettext
 
   alias Phoenix.LiveView.JS
-  import PokerFaceWeb.Gettext
 
   @doc """
   Renders a modal.
@@ -360,7 +360,7 @@ defmodule PokerFaceWeb.CoreComponents do
           @errors != [] && "border-rose-400 focus:border-rose-400"
         ]}
         {@rest}
-      ><%= Phoenix.HTML.Form.normalize_value("textarea", @value) %></textarea>
+      >{Phoenix.HTML.Form.normalize_value("textarea", @value)}</textarea>
       <.error :for={msg <- @errors}>{msg}</.error>
     </div>
     """
